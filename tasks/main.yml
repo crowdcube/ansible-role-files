@@ -31,7 +31,7 @@
     owner: "{{ item.owner | default(omit) }}"
     group: "{{ item.group | default(omit) }}"
     mode: "{{ item.mode | default(omit) }}"
-  with_items: "{{ files | selectattr('dest', 'defined') | list }}"
+  with_items: "{{ files | selectattr('dest', 'defined') | selectattr('src', 'defined') | selectattr('content', 'undefined') | list }}"
 
 - name: Copy content to file
   copy:

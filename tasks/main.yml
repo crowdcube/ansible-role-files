@@ -32,3 +32,13 @@
     group: "{{ item.group | default(omit) }}"
     mode: "{{ item.mode | default(omit) }}"
   with_items: "{{ files | selectattr('dest', 'defined') | list }}"
+
+- name: Copy content to file
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ item.dest }}"
+    force: "{{ item.force | default(omit) }}"
+    owner: "{{ item.owner | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    mode: "{{ item.mode | default(omit) }}"
+  with_items: "{{ files | selectattr('dest', 'defined') | selectattr('content', 'defined') | selectattr('src', 'undefined') | list }}"
